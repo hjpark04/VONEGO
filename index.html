@@ -128,7 +128,7 @@
     </div>
   </section>
 
-  <!-- ⭐ 영상 재생 전용 배너 영역 (텍스트 설명 카드 전부 삭제) ⭐ -->
+  <!-- ⭐ 영상 재생 전용 배너 영역 ⭐ -->
   <section class="py-12 bg-slate-100 border-b border-slate-200">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
@@ -216,63 +216,114 @@
   <!-- 왜 '보내고' 인가요? -->
   <section id="why-vonego" class="py-14 bg-white border-b-2 border-brand-600 shadow-inner">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <span class="text-xs font-bold text-white bg-brand-600 px-3.5 py-1 rounded-full uppercase tracking-wider inline-block mb-2 shadow-md">Key Advantages</span>
+      
+      <!-- 헤더 및 설명 박스 -->
+      <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+        <span class="text-xs font-bold text-white bg-brand-600 px-3.5 py-1 rounded-full uppercase tracking-wider inline-block shadow-md">Key Advantages</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 break-keep">왜 <span class="text-brand-600">'보내고'</span> 인가요?</h2>
-        <p class="text-slate-600 text-sm sm:text-base mt-2 break-keep">방송을 보내는 장비라서 '보내고'라고 부릅니다. 담당자 누구나 기억하기 쉽고 친근한 직관적인 이름입니다.</p>
+        
+        <div class="bg-brand-50 border border-brand-200 rounded-2xl p-4 sm:p-5 mt-4 text-center shadow-sm">
+          <p class="text-slate-800 text-sm sm:text-base font-bold leading-relaxed break-keep">
+            방송을 보내는 장비라서 <span class="text-brand-600 font-black">'보내고'</span>라고 부릅니다.
+          </p>
+          <p class="text-slate-600 text-xs sm:text-sm mt-1 leading-relaxed">
+            담당자 누구나 기억하기 쉽고 친근한 직관적인 고유 명칭입니다.
+          </p>
+        </div>
       </div>
 
+      <!-- 4대 핵심 특징 -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <!-- Feature 1 -->
-        <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
           <div>
-            <div class="w-12 h-12 bg-brand-600 text-white rounded-lg flex items-center justify-center text-2xl mb-4 font-bold shadow-md">
-              <i class="fa-solid fa-desktop"></i>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 bg-brand-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md">
+                <i class="fa-solid fa-desktop"></i>
+              </div>
+              <span class="text-[11px] font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">Point 01</span>
             </div>
             <h3 class="text-base font-bold text-slate-900 mb-2">2.7인치 LCD 모니터링</h3>
-            <p class="text-slate-600 text-xs leading-relaxed">
-              별도의 외장 모니터 없이도 전면 LCD를 통해 영상이 실시간으로 차질 없이 정상 송출되고 있는지 즉시 확인 가능합니다.
-            </p>
+            <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>외장 모니터 불필요:</strong> 전면 LCD 스크린 탑재</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>실시간 관제:</strong> 영상 상태 및 비트레이트 한눈에 확인</span>
+              </li>
+            </ul>
           </div>
         </div>
 
         <!-- Feature 2 -->
-        <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
           <div>
-            <div class="w-12 h-12 bg-brand-600 text-white rounded-lg flex items-center justify-center text-2xl mb-4 font-bold shadow-md">
-              <i class="fa-solid fa-tower-broadcast"></i>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 bg-brand-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md">
+                <i class="fa-solid fa-tower-broadcast"></i>
+              </div>
+              <span class="text-[11px] font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">Point 02</span>
             </div>
             <h3 class="text-base font-bold text-slate-900 mb-2">Dual RTMP & 자동 녹화</h3>
-            <p class="text-slate-600 text-xs leading-relaxed">
-              듀얼 RTMP 스트리밍을 지원하며, RTMP 설정 시 방송 송출과 동시에 자동으로 녹화가 시작되어 방송 누락을 방지합니다.
-            </p>
+            <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>이중 송출:</strong> 듀얼 RTMP 라이브 스트리밍 지원</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>자동 연동:</strong> 송출 시작 시 자동 녹화로 방송 누락 방지</span>
+              </li>
+            </ul>
           </div>
         </div>
 
         <!-- Feature 3 -->
-        <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
           <div>
-            <div class="w-12 h-12 bg-brand-600 text-white rounded-lg flex items-center justify-center text-2xl mb-4 font-bold shadow-md">
-              <i class="fa-solid fa-record-vinyl"></i>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 bg-brand-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md">
+                <i class="fa-solid fa-record-vinyl"></i>
+              </div>
+              <span class="text-[11px] font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">Point 03</span>
             </div>
             <h3 class="text-base font-bold text-slate-900 mb-2">동시 인코딩 & 레코딩</h3>
-            <p class="text-slate-600 text-xs leading-relaxed">
-              고화질 라이브 인터넷 방송 스트리밍과 동시에 USB 포트 및 SD 카드 슬롯을 통한 고화질 동시 녹화를 완벽 지원합니다.
-            </p>
+            <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>고화질 백업:</strong> USB 포트 & SD 카드 슬롯 제공</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>원스톱 처리:</strong> 스트리밍과 동시 저장 완벽 지원</span>
+              </li>
+            </ul>
           </div>
         </div>
 
         <!-- Feature 4 -->
-        <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
           <div>
-            <div class="w-12 h-12 bg-brand-600 text-white rounded-lg flex items-center justify-center text-2xl mb-4 font-bold shadow-md">
-              <i class="fa-solid fa-shield-halved"></i>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 bg-brand-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <span class="text-[11px] font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">Point 04</span>
             </div>
-            <h3 class="text-base font-bold text-slate-900 mb-2">IP 접근 제어 기본 탑재</h3>
-            <p class="text-slate-600 text-xs leading-relaxed">
-              외부 인가되지 않은 무단 접속을 완벽 차단하며, <strong class="text-brand-600">미리 등록된 운영 PC에서만 안전하게 접속 및 제어</strong>가 가능합니다.
-            </p>
+            <h3 class="text-base font-bold text-slate-900 mb-2">IP 접근 제어 보안</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>무단 접속 차단:</strong> 등록된 IP에서만 접근 및 제어</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>안전한 관제:</strong> 지자체/공공기관 맞춤 보안 환경</span>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -280,7 +331,7 @@
     </div>
   </section>
 
-  <!-- 후면 포트 상세 -->
+  <!-- ⭐ 후면 포트 상세 (이미지 크기를 기존의 3분의 1 수준으로 축소) ⭐ -->
   <section id="interface" class="py-14 bg-slate-900 text-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
@@ -291,36 +342,27 @@
       </div>
 
       <div class="bg-slate-800/90 rounded-2xl border border-slate-700 p-6 lg:p-8 shadow-2xl mb-8">
-        <div class="bg-black/70 p-5 rounded-xl border border-slate-800 flex justify-center items-center mb-6">
-          <img src="보내고 후면.png" alt="보내고 후면 전체 단자" class="max-h-56 w-auto object-contain">
+        
+        <!-- 후면 실물 이미지 (3분의 1 크기: max-w-xs sm:max-w-sm 로 축소) -->
+        <div class="w-full bg-slate-950 p-3 sm:p-4 rounded-xl border border-slate-700/80 shadow-2xl mb-8 flex justify-center items-center">
+          <img src="보내고 후면(2).png" alt="보내고 후면 전체 단자" class="w-full max-w-xs sm:max-w-sm h-auto object-contain rounded">
         </div>
 
+        <!-- 6개 인터페이스 카드 -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition">
+          
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
             <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
-              <i class="fa-solid fa-video"></i>
-              <h4>4K30 HDMI IN & 3G-SDI IN</h4>
+              <i class="fa-solid fa-plug"></i>
+              <h4>DC 12V Power Jack</h4>
             </div>
             <p class="text-xs text-slate-300 leading-relaxed">
-              • <strong>지원 해상도:</strong> HD, Full HD, UHD (4K30p)<br>
-              • <strong>연결 대상:</strong> PTZ 카메라, 스튜디오 믹서<br>
-              • <strong>특징:</strong> HDMI와 방송 전용 SDI 동시 탑재
+              • <strong>전원 사양:</strong> AC to DC 전용 어댑터 연결<br>
+              • <strong>특징:</strong> PoE 없는 환경에서도 안정 구동
             </p>
           </div>
 
-          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition">
-            <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
-              <i class="fa-solid fa-sliders"></i>
-              <h4>BALANCED AUDIO (L/R)</h4>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              • <strong>채널 구성:</strong> 좌/우 2채널 스테레오 잭<br>
-              • <strong>연결 대상:</strong> 의회 마이크 앰프, 음향 믹서<br>
-              • <strong>특징:</strong> 노이즈 없는 깨끗한 오디오 입력
-            </p>
-          </div>
-
-          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition">
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
             <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
               <i class="fa-solid fa-network-wired"></i>
               <h4>IP / PoE (10/100/1000M)</h4>
@@ -332,39 +374,50 @@
             </p>
           </div>
 
-          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition">
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
             <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
               <i class="fa-solid fa-sd-card"></i>
-              <h4>SD CARD Slot & 레코딩</h4>
+              <h4>SD CARD & TALLY Port</h4>
             </div>
             <p class="text-xs text-slate-300 leading-relaxed">
-              • <strong>저장 매체:</strong> 후면 SD 카드 (전면 USB 지원)<br>
-              • <strong>동작 연동:</strong> RTMP 송출 시 자동 동시 저장<br>
-              • <strong>특징:</strong> 네트워크 장애 시 안전 백업
+              • <strong>저장/신호:</strong> 후면 SD 카드 및 TALLY 제어 단자<br>
+              • <strong>특징:</strong> 방송 송출시 자동 동시 녹화 및 상태 표시
             </p>
           </div>
 
-          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition">
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
             <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
-              <i class="fa-solid fa-lightbulb"></i>
-              <h4>TALLY Control Port</h4>
+              <i class="fa-solid fa-video"></i>
+              <h4>4K30 HDMI IN</h4>
             </div>
             <p class="text-xs text-slate-300 leading-relaxed">
-              • <strong>신호 제어:</strong> 방송 상태 TALLY 인디케이터<br>
-              • <strong>특징:</strong> 외부 신호등 및 방송 준비 상태 연동
+              • <strong>지원 해상도:</strong> HD, Full HD, 4K30p 영상 입력<br>
+              • <strong>연결 대상:</strong> 고화질 PTZ 카메라, 영상 믹서
             </p>
           </div>
 
-          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition">
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
             <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
-              <i class="fa-solid fa-plug"></i>
-              <h4>DC 12V Power Jack</h4>
+              <i class="fa-solid fa-tower-broadcast"></i>
+              <h4>3G-SDI IN</h4>
             </div>
             <p class="text-xs text-slate-300 leading-relaxed">
-              • <strong>전원 사양:</strong> AC to DC 전용 어댑터 연결<br>
-              • <strong>특징:</strong> PoE 없는 환경에서도 안정 구동
+              • <strong>방송 규격:</strong> BNC 3G-SDI 장거리 신호 입력<br>
+              • <strong>특징:</strong> 전문 스튜디오 및 통합 의정 방송 호환
             </p>
           </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
+            <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
+              <i class="fa-solid fa-sliders"></i>
+              <h4>BALANCED AUDIO (L/R)</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>채널 구성:</strong> 좌/우 2채널 스테레오 잭<br>
+              • <strong>특징:</strong> 의회 마이크 앰프 연결시 노이즈 없는 음향
+            </p>
+          </div>
+
         </div>
       </div>
 
