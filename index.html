@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>보내고 (VoneGO) - 실시간 인터넷 방송 인코더 | (주)티노</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              200: '#fecdd3',
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+              800: '#9f1239',
+              900: '#881337'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 2초 크로스 페이드 & 슬라이딩 동영상 효과 CSS */
+    .video-canvas-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      overflow: hidden;
+      background-color: #000;
+    }
+
+    .video-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .video-layer.active {
+      opacity: 1;
+      animation: kenBurns 4s ease-out forwards;
+    }
+
+    @keyframes kenBurns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.03); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-600 selection:text-white leading-normal">
+
+  <!-- 네비게이션 바 -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://www.tinno.co.kr/products/5" target="_blank" class="flex items-center gap-3">
+          <img src="로고.png" alt="티노 로고" class="h-8 object-contain">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900">VoneGO <span class="text-brand-600">보내고</span></span>
+        </a>
+      </div>
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+        <button onclick="openStoryVideoModal(0)" class="hover:text-brand-600 transition flex items-center gap-1.5 text-brand-600 font-bold">
+          <i class="fa-solid fa-circle-play"></i> 인코더 쉽게 알기 영상
+        </button>
+        <a href="#why-vonego" class="hover:text-brand-600 transition">왜 보내고인가요</a>
+        <a href="#interface" class="hover:text-brand-600 transition">후면포트상세</a>
+        <a href="#webgui" class="hover:text-brand-600 transition">웹대시보드</a>
+        <a href="#specs" class="hover:text-brand-600 transition">기술사양</a>
+        <a href="#contact" class="hover:text-brand-600 transition">기술지원센터</a>
+      </nav>
+      <a href="https://www.tinno.co.kr/products/5" target="_blank" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-brand-600 text-white text-xs sm:text-sm font-bold px-4 py-2 rounded-lg shadow-sm transition">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>제품 문의</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- 메인 히어로 섹션 -->
+  <section class="relative bg-slate-900 text-white py-12 lg:py-16 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#e11d48_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <div class="lg:col-span-7 space-y-5 text-center lg:text-left">
+        <span class="inline-block bg-brand-500/20 text-brand-300 border border-brand-500/30 font-bold text-xs sm:text-sm px-3.5 py-1.5 rounded-full">
+          공공기관 · 각 시/군 의회 및 시/군청 최적화
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight break-keep">
+          전원을 켜면, 방송이 나갑니다!<br>
+          <span class="text-brand-500">인터넷 방송 인코더 보내고</span>
+        </h1>
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 break-keep">
+          실시간 현장 모니터링 2.7인치 LCD 스크린부터 자동 녹화, IP 보안 제어 및 조달 입찰 지원까지! 지자체 의정 방송 환경에 최적화된 스마트 인코더입니다.
+        </p>
+        <div class="pt-2 flex flex-wrap gap-3 justify-center lg:justify-start">
+          <button onclick="openStoryVideoModal(0)" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-brand-600/30 transition text-sm inline-flex items-center gap-2 transform hover:-translate-y-0.5">
+            <i class="fa-solid fa-circle-play text-lg"></i>
+            <span>보내고 인코더 쉽게 알기 (영상 보기)</span>
+          </button>
+          <a href="https://www.tinno.co.kr/products/5" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold px-6 py-3.5 rounded-xl transition text-sm">
+            온라인 제품 문의
+          </a>
+        </div>
+      </div>
+
+      <!-- 메인 실물 장비 사진 -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-full max-w-md bg-slate-800/80 p-4 rounded-2xl border border-slate-700 shadow-2xl backdrop-blur">
+          <div class="absolute -top-3 -right-3 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+            2.7인치 LCD 탑재
+          </div>
+          <img src="보내고 전면.png" alt="보내고 전면 실물" class="w-full h-auto rounded-lg object-contain">
+          <p class="text-center text-xs text-slate-400 mt-3 font-medium">VoneGO 실시간 모니터링 인코더 본체</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ⭐ 영상 재생 전용 배너 영역 ⭐ -->
+  <section class="py-12 bg-slate-100 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mx-auto bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
+        
+        <div class="text-center mb-6">
+          <span class="text-xs font-bold text-brand-700 bg-brand-50 px-3 py-1 rounded-full border border-brand-100 uppercase tracking-wider inline-block mb-2">Video Guide</span>
+          <h2 class="text-2xl font-extrabold text-slate-900 break-keep">💡 보내고 인코더 쉽게 알기</h2>
+        </div>
+
+        <!-- 영상 팝업 오픈 배너 -->
+        <div class="relative bg-slate-900 rounded-xl overflow-hidden shadow-lg cursor-pointer group max-w-xl mx-auto" onclick="openStoryVideoModal(0)">
+          <img src="이미지1.png" alt="스토리 영상 썸네일" class="w-full h-60 object-cover opacity-85 group-hover:scale-105 transition-transform duration-300">
+          <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-3">
+            <div class="w-16 h-16 bg-brand-600 text-white rounded-full flex items-center justify-center text-2xl shadow-xl group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-play ml-1"></i>
+            </div>
+            <span class="text-white font-bold text-sm bg-black/60 px-4 py-1.5 rounded-full border border-white/20 backdrop-blur">
+              클릭하여 영상으로 전체보기
+            </span>
+          </div>
+          <span class="absolute bottom-3 right-3 bg-black/80 text-white text-xs px-2.5 py-1 rounded-md font-mono">2초 Dissolve Video</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ⭐ 2초 크로스페이드(Dissolve) 영상 모달 ⭐ -->
+  <div id="story-video-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-md" onclick="closeStoryVideoModal()">
+    <div class="relative max-w-3xl w-full bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-700" onclick="event.stopPropagation()">
+      
+      <!-- 플레이어 상단 헤더 -->
+      <div class="bg-slate-950 px-5 py-3.5 flex items-center justify-between border-b border-slate-800 text-white">
+        <span class="font-bold text-sm flex items-center gap-2">
+          <i class="fa-solid fa-circle-play text-brand-500"></i>
+          <span>보내고 인코더 쉽게 알기 (Dissolve Motion Video)</span>
+        </span>
+        <button onclick="closeStoryVideoModal()" class="text-slate-400 hover:text-white text-xl transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- 이중 레이어 캔버스 (2초 페이드 효과) -->
+      <div class="video-canvas-container min-h-[320px] sm:min-h-[440px]">
+        <img id="layer-a" src="이미지1.png" alt="영상 레이어 A" class="video-layer active">
+        <img id="layer-b" src="이미지2.png" alt="영상 레이어 B" class="video-layer">
+
+        <!-- 컨트롤 화살표 -->
+        <button onclick="prevVideoSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-black/50 hover:bg-brand-600 text-white rounded-full flex items-center justify-center transition">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button onclick="nextVideoSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-black/50 hover:bg-brand-600 text-white rounded-full flex items-center justify-center transition">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        
+        <div class="absolute top-3 left-3 z-20 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+          <span id="video-step-num">1</span> / 8 Cut
+        </div>
+      </div>
+
+      <!-- 하단 컨트롤러 -->
+      <div class="bg-slate-950 p-4 border-t border-slate-800 space-y-3">
+        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden cursor-pointer" onclick="clickProgressBar(event)">
+          <div id="video-progress" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
+        </div>
+
+        <div class="flex items-center justify-between text-white text-xs">
+          <div class="flex items-center gap-3">
+            <button id="modal-play-btn" onclick="toggleStoryVideoPlay()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-1.5 rounded-lg flex items-center gap-1.5 transition">
+              <i id="modal-play-icon" class="fa-solid fa-pause"></i>
+              <span id="modal-play-text">일시정지</span>
+            </button>
+            <span class="text-slate-400 font-mono" id="video-time-text">00:04 / 00:32</span>
+          </div>
+
+          <div class="flex items-center gap-1" id="thumb-num-bar"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 왜 '보내고' 인가요? -->
+  <section id="why-vonego" class="py-14 bg-white border-b-2 border-brand-600 shadow-inner">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- 헤더 및 설명 박스 -->
+      <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+        <span class="text-xs font-bold text-white bg-brand-600 px-3.5 py-1 rounded-full uppercase tracking-wider inline-block shadow-md">Key Advantages</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 break-keep">왜 <span class="text-brand-600">'보내고'</span> 인가요?</h2>
+        
+        <div class="bg-brand-50 border border-brand-200 rounded-2xl p-4 sm:p-5 mt-4 text-center shadow-sm">
+          <p class="text-slate-800 text-sm sm:text-base font-bold leading-relaxed break-keep">
+            방송을 보내는 장비라서 <span class="text-brand-600 font-black">'보내고'</span>라고 부릅니다.
+          </p>
+          <p class="text-slate-600 text-xs sm:text-sm mt-1 leading-relaxed">
+            담당자 누구나 기억하기 쉽고 친근한 직관적인 고유 명칭입니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4대 핵심 특징 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Feature 1 -->
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 bg-brand-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md">
+                <i class="fa-solid fa-desktop"></i>
+              </div>
+              <span class="text-[11px] font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">Point 01</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">2.7인치 LCD 모니터링</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>외장 모니터 불필요:</strong> 전면 LCD 스크린 탑재</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>실시간 관제:</strong> 영상 상태 및 비트레이트 한눈에 확인</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 bg-brand-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md">
+                <i class="fa-solid fa-tower-broadcast"></i>
+              </div>
+              <span class="text-[11px] font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">Point 02</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Dual RTMP & 자동 녹화</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>이중 송출:</strong> 듀얼 RTMP 라이브 스트리밍 지원</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>자동 연동:</strong> 송출 시작 시 자동 녹화로 방송 누락 방지</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 bg-brand-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md">
+                <i class="fa-solid fa-record-vinyl"></i>
+              </div>
+              <span class="text-[11px] font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">Point 03</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">동시 인코딩 & 레코딩</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>고화질 백업:</strong> USB 포트 & SD 카드 슬롯 제공</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>원스톱 처리:</strong> 스트리밍과 동시 저장 완벽 지원</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 border-t-4 border-t-brand-600 hover:border-brand-600 transition shadow-sm hover:shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 bg-brand-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <span class="text-[11px] font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">Point 04</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">IP 접근 제어 보안</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>무단 접속 차단:</strong> 등록된 IP에서만 접근 및 제어</span>
+              </li>
+              <li class="flex items-start gap-1.5">
+                <i class="fa-solid fa-check text-brand-600 mt-0.5 text-[10px]"></i>
+                <span><strong>안전한 관제:</strong> 지자체/공공기관 맞춤 보안 환경</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ⭐ 후면 포트 상세 (이미지 크기를 기존의 3분의 1 수준으로 축소) ⭐ -->
+  <section id="interface" class="py-14 bg-slate-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-bold text-brand-400 bg-brand-950 px-3 py-1 rounded-full border border-brand-800 uppercase tracking-wider inline-block mb-2">Hardware Interfaces</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white break-keep">후면 입출력 단자 상세 구성</h2>
+        <p class="text-slate-400 text-sm mt-2 break-keep">다양한 방송 인프라와의 완벽한 연결성과 전원/백업 이중화 호환 설계</p>
+      </div>
+
+      <div class="bg-slate-800/90 rounded-2xl border border-slate-700 p-6 lg:p-8 shadow-2xl mb-8">
+        
+        <!-- 후면 실물 이미지 (3분의 1 크기: max-w-xs sm:max-w-sm 로 축소) -->
+        <div class="w-full bg-slate-950 p-3 sm:p-4 rounded-xl border border-slate-700/80 shadow-2xl mb-8 flex justify-center items-center">
+          <img src="보내고 후면(2).png" alt="보내고 후면 전체 단자" class="w-full max-w-xs sm:max-w-sm h-auto object-contain rounded">
+        </div>
+
+        <!-- 6개 인터페이스 카드 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
+            <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
+              <i class="fa-solid fa-plug"></i>
+              <h4>DC 12V Power Jack</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>전원 사양:</strong> AC to DC 전용 어댑터 연결<br>
+              • <strong>특징:</strong> PoE 없는 환경에서도 안정 구동
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
+            <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
+              <i class="fa-solid fa-network-wired"></i>
+              <h4>IP / PoE (10/100/1000M)</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>네트워크:</strong> 기가비트 이더넷 포트<br>
+              • <strong>전원 공급:</strong> PoE (IEEE 802.3af 표준)<br>
+              • <strong>특징:</strong> 랜케이블 하나로 전원+데이터 동시 처리
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
+            <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
+              <i class="fa-solid fa-sd-card"></i>
+              <h4>SD CARD & TALLY Port</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>저장/신호:</strong> 후면 SD 카드 및 TALLY 제어 단자<br>
+              • <strong>특징:</strong> 방송 송출시 자동 동시 녹화 및 상태 표시
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
+            <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
+              <i class="fa-solid fa-video"></i>
+              <h4>4K30 HDMI IN</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>지원 해상도:</strong> HD, Full HD, 4K30p 영상 입력<br>
+              • <strong>연결 대상:</strong> 고화질 PTZ 카메라, 영상 믹서
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
+            <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
+              <i class="fa-solid fa-tower-broadcast"></i>
+              <h4>3G-SDI IN</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>방송 규격:</strong> BNC 3G-SDI 장거리 신호 입력<br>
+              • <strong>특징:</strong> 전문 스튜디오 및 통합 의정 방송 호환
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/70 hover:border-brand-500 transition group">
+            <div class="flex items-center gap-2 mb-2 text-brand-400 font-bold text-sm">
+              <i class="fa-solid fa-sliders"></i>
+              <h4>BALANCED AUDIO (L/R)</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              • <strong>채널 구성:</strong> 좌/우 2채널 스테레오 잭<br>
+              • <strong>특징:</strong> 의회 마이크 앰프 연결시 노이즈 없는 음향
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 웹 대시보드 화면 -->
+  <section id="webgui" class="py-14 bg-slate-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-bold text-brand-700 bg-brand-50 px-3 py-1 rounded-full border border-brand-100 uppercase tracking-wider inline-block mb-2">Web Management GUI</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 break-keep">웹 기반 제어 대시보드 화면</h2>
+        <p class="text-slate-600 text-sm mt-2 break-keep">별도 프로그램 설치 없이 웹 브라우저 접속으로 상태 모니터링 및 설정 가능</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="mb-4">
+            <div class="flex items-center justify-between mb-1">
+              <h3 class="text-base font-bold text-slate-900">1. 시스템 & 네트워크 모니터링</h3>
+              <span class="text-xs text-brand-600 font-mono font-bold">System Info</span>
+            </div>
+            <p class="text-xs text-slate-500 break-keep">CPU 점유율, IP주소, 네트워크 트래픽(Rx/Tx) 실시간 그래프 표시</p>
+          </div>
+          <div class="bg-slate-900 p-2 rounded-xl border border-slate-800 shadow-inner">
+            <img src="웹페이지접속_1.jpg" alt="보내고 웹 대시보드 1" class="w-full h-auto rounded object-contain">
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="mb-4">
+            <div class="flex items-center justify-between mb-1">
+              <h3 class="text-base font-bold text-slate-900">2. 코덱 & 비트레이트 설정</h3>
+              <span class="text-xs text-brand-600 font-mono font-bold">Encoding Config</span>
+            </div>
+            <p class="text-xs text-slate-500 break-keep">H.264 / H.265 코덱, 해상도(1080p), 비트레이트 및 프레임 조정</p>
+          </div>
+          <div class="bg-slate-900 p-2 rounded-xl border border-slate-800 shadow-inner">
+            <img src="웹페이지접속_2.jpg" alt="보내고 웹 대시보드 2" class="w-full h-auto rounded object-contain">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 상세 기술 사양 및 기본 구성품 -->
+  <section id="specs" class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">상세 기술 사양 (Specifications)</h2>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden mb-10">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <th class="w-1/3 bg-slate-50 p-4 font-bold text-slate-700">규격 및 무게</th>
+              <td class="p-4 text-slate-800">H 44 x W 165 x D 90 mm (커넥터 포함) / <strong>0.5 kg</strong></td>
+            </tr>
+            <tr>
+              <th class="bg-slate-50 p-4 font-bold text-slate-700">비디오 입력</th>
+              <td class="p-4 text-slate-800">HDMI 포트, SDI 포트 (HD / Full HD / UHD 입력 지원)</td>
+            </tr>
+            <tr>
+              <th class="bg-slate-50 p-4 font-bold text-slate-700">오디오 입력</th>
+              <td class="p-4 text-slate-800">밸런스 입력 (좌/우 2개 채널, 스테레오 잭 사용)</td>
+            </tr>
+            <tr>
+              <th class="bg-slate-50 p-4 font-bold text-slate-700">출력 프로토콜</th>
+              <td class="p-4 text-brand-700 font-bold">H.264, H.265, HX2, HX3, SRT, RTMP (Dual RTMP 지원)</td>
+            </tr>
+            <tr>
+              <th class="bg-slate-50 p-4 font-bold text-slate-700">네트워크</th>
+              <td class="p-4 text-slate-800">10M / 100M / 1000M (PoE 지원, IEEE 802.3af 표준)</td>
+            </tr>
+            <tr>
+              <th class="bg-slate-50 p-4 font-bold text-slate-700">녹화 방식</th>
+              <td class="p-4 text-slate-800">USB 포트 및 SD 카드 슬롯을 이용한 동시 레코딩</td>
+            </tr>
+            <tr>
+              <th class="bg-slate-50 p-4 font-bold text-slate-700">제공 옵션</th>
+              <td class="p-4 text-slate-800">방송 랙에 장착할 수 있는 <strong>랙 거치대 (Rack Mount Kit)</strong> 제공</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 기본 구성품 패키지 -->
+      <div class="max-w-4xl mx-auto bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-6">
+        <div class="w-full md:w-1/3 flex justify-center">
+          <img src="보내고 제품 구성.png" alt="제품 기본 구성품" class="max-h-32 object-contain">
+        </div>
+        <div class="w-full md:w-2/3 space-y-2">
+          <span class="text-xs font-bold text-brand-700 bg-brand-100 px-2.5 py-1 rounded">Package Included</span>
+          <h3 class="text-lg font-bold text-slate-900">기본 제공 구성품</h3>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-1">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-600"></i> <span><strong>① VoneGO 본체</strong></span></li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-600"></i> <span><strong>② AC to DC Adapter</strong></span></li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-600"></i> <span><strong>③ 해당 국가 맞춤 AC 플러그 1개</strong> (KC, CE, UK, UL 선택)</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 나라장터 배너 -->
+  <section class="py-12 bg-slate-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="mb-6">
+        <span class="text-xs font-bold text-white bg-brand-600 px-4 py-1.5 rounded-full mb-2 inline-block">나라장터 종합쇼핑몰 등록</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white break-keep">납품이 끝이 아니라, 그때부터가 시작입니다!</h2>
+        <p class="text-slate-300 text-sm mt-2 break-keep">일주일 연속 에이징 검증 / 고장 발생 시 제조사 즉시 교체 지원</p>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl max-w-xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+        <div class="text-left">
+          <p class="text-xs text-brand-400 font-bold">나라장터 조달식별번호</p>
+          <p class="text-2xl font-black text-white tracking-wider">25563067</p>
+        </div>
+        <a href="https://www.tinno.co.kr/products/5" target="_blank" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-7 py-3.5 rounded-xl shadow-md transition text-xs sm:text-sm inline-flex items-center gap-2">
+          <span>나라장터 / 제품 문의</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 정보 -->
+  <footer id="contact" class="bg-slate-950 text-slate-300 py-12 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-slate-800">
+        
+        <div class="md:col-span-6 space-y-3">
+          <div class="flex items-center gap-2">
+            <a href="https://www.tinno.co.kr/products/5" target="_blank" class="flex items-center gap-2">
+              <img src="로고.png" alt="티노 로고" class="h-7 object-contain bg-white p-1 rounded">
+              <span class="text-lg font-bold text-white">(주)티노</span>
+            </a>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            본사: 대전광역시 유성구 학하동로 8 (학하동, 티노빌딩)<br>
+            대표번호: <a href="tel:042-825-3840" class="text-brand-400 font-bold hover:underline">042-825-3840</a><br>
+            이메일: <a href="mailto:sales@tinno.co.kr" class="text-brand-400 font-bold hover:underline">sales@tinno.co.kr</a><br>
+            홈페이지: <a href="https://www.tinno.co.kr/products/5" target="_blank" class="text-brand-400 hover:underline font-semibold">www.tinno.co.kr (제품문의 바로가기)</a>
+          </p>
+        </div>
+
+        <div class="md:col-span-6 space-y-3">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider">전국 기술지원센터</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+              <span class="text-slate-400 block mb-1">경기 지원센터</span>
+              <a href="tel:031-689-5009" class="text-white font-bold hover:text-brand-400">031-689-5009</a>
+            </div>
+            <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+              <span class="text-slate-400 block mb-1">대구 지원센터</span>
+              <a href="tel:070-5142-2237" class="text-white font-bold hover:text-brand-400">070-5142-2237</a>
+            </div>
+            <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+              <span class="text-slate-400 block mb-1">경북 지원센터</span>
+              <a href="tel:054-805-7999" class="text-white font-bold hover:text-brand-400">054-805-7999</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-6 text-center text-xs text-slate-500">
+        Copyright ⓒ (주)티노 All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ⭐ 2초 크로스 페이드(Cross-Fade Dissolve) 비디오 자바스크립트 엔진 ⭐ -->
+  <script>
+    const storyImages = [
+      '이미지1.png', '이미지2.png', '이미지3.png', '이미지4.png',
+      '이미지5.png', '이미지6.png', '이미지7.png', '이미지8.png'
+    ];
+    let currentStoryIndex = 0;
+    let activeLayer = 'a';
+    let isVideoPlaying = false;
+    let videoTimer = null;
+    const playDuration = 4000;
+
+    function initThumbBar() {
+      const bar = document.getElementById('thumb-num-bar');
+      bar.innerHTML = '';
+      storyImages.forEach((_, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `w-6 h-6 rounded text-xs font-bold transition ${idx === 0 ? 'bg-brand-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`;
+        btn.textContent = idx + 1;
+        btn.onclick = () => jumpToVideoSlide(idx);
+        bar.appendChild(btn);
+      });
+    }
+
+    function updateVideoDisplayCrossFade() {
+      const layerA = document.getElementById('layer-a');
+      const layerB = document.getElementById('layer-b');
+      const stepNum = document.getElementById('video-step-num');
+      const progress = document.getElementById('video-progress');
+      const timeText = document.getElementById('video-time-text');
+
+      const nextImgSrc = storyImages[currentStoryIndex];
+
+      if (activeLayer === 'a') {
+        layerB.src = nextImgSrc;
+        layerB.classList.add('active');
+        layerA.classList.remove('active');
+        activeLayer = 'b';
+      } else {
+        layerA.src = nextImgSrc;
+        layerA.classList.add('active');
+        layerB.classList.remove('active');
+        activeLayer = 'a';
+      }
+
+      stepNum.textContent = currentStoryIndex + 1;
+
+      const percent = ((currentStoryIndex + 1) / storyImages.length) * 100;
+      progress.style.width = `${percent}%`;
+
+      const currSec = (currentStoryIndex + 1) * 4;
+      const totalSec = storyImages.length * 4;
+      timeText.textContent = `00:${currSec < 10 ? '0' : ''}${currSec} / 00:${totalSec}`;
+
+      const btns = document.querySelectorAll('#thumb-num-bar button');
+      btns.forEach((btn, idx) => {
+        if (idx === currentStoryIndex) {
+          btn.className = 'w-6 h-6 rounded text-xs font-bold bg-brand-600 text-white';
+        } else {
+          btn.className = 'w-6 h-6 rounded text-xs font-bold bg-slate-800 text-slate-400 hover:bg-slate-700';
+        }
+      });
+    }
+
+    function nextVideoSlide() {
+      currentStoryIndex = (currentStoryIndex + 1) % storyImages.length;
+      updateVideoDisplayCrossFade();
+    }
+
+    function prevVideoSlide() {
+      currentStoryIndex = (currentStoryIndex - 1 + storyImages.length) % storyImages.length;
+      updateVideoDisplayCrossFade();
+    }
+
+    function jumpToVideoSlide(idx) {
+      currentStoryIndex = idx;
+      updateVideoDisplayCrossFade();
+    }
+
+    function toggleStoryVideoPlay() {
+      const playIcon = document.getElementById('modal-play-icon');
+      const playText = document.getElementById('modal-play-text');
+
+      if (isVideoPlaying) {
+        clearInterval(videoTimer);
+        isVideoPlaying = false;
+        playIcon.className = 'fa-solid fa-play';
+        playText.textContent = '재생';
+      } else {
+        videoTimer = setInterval(nextVideoSlide, playDuration);
+        isVideoPlaying = true;
+        playIcon.className = 'fa-solid fa-pause';
+        playText.textContent = '일시정지';
+      }
+    }
+
+    function openStoryVideoModal(startIndex = 0) {
+      currentStoryIndex = startIndex;
+      initThumbBar();
+      
+      const layerA = document.getElementById('layer-a');
+      const layerB = document.getElementById('layer-b');
+      layerA.src = storyImages[currentStoryIndex];
+      layerA.classList.add('active');
+      layerB.classList.remove('active');
+      activeLayer = 'a';
+
+      updateVideoDisplayCrossFade();
+
+      const modal = document.getElementById('story-video-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      clearInterval(videoTimer);
+      isVideoPlaying = true;
+      document.getElementById('modal-play-icon').className = 'fa-solid fa-pause';
+      document.getElementById('modal-play-text').textContent = '일시정지';
+      videoTimer = setInterval(nextVideoSlide, playDuration);
+    }
+
+    function closeStoryVideoModal() {
+      clearInterval(videoTimer);
+      isVideoPlaying = false;
+      const modal = document.getElementById('story-video-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function clickProgressBar(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const ratio = clickX / rect.width;
+      const targetIndex = Math.floor(ratio * storyImages.length);
+      jumpToVideoSlide(Math.min(targetIndex, storyImages.length - 1));
+    }
+  </script>
+
+</body>
+</html>
